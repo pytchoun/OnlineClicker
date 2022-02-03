@@ -6,6 +6,11 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _tileList = new List<GameObject>();
 
+    public List<GameObject> GetTileList()
+    {
+        return _tileList;
+    }
+
     private void Start()
     {
         foreach (Transform child in GetComponentsInChildren<Transform>())
@@ -15,9 +20,11 @@ public class TileManager : MonoBehaviour
                 _tileList.Add(child.gameObject);
             }
         }
+
+        GetTitlesState();
     }
 
-    public GameObject GetTile()
+    public GameObject GetTile(GameObject tree)
     {
         int value = 0;
         for (int i = 0; i < 100; i++)
@@ -27,10 +34,37 @@ public class TileManager : MonoBehaviour
             if (tile.IsFree)
             {
                 tile.IsFree = false;
+                tile.tree = tree;
                 return _tileList[value];
             }
         }
         Debug.Log("Not tile found");
         return null;
+    }
+
+    public void GetTitlesState()
+    {
+        List<string> list = new List<string>();
+
+        int index = 0;
+        foreach (var tile in _tileList)
+        {
+            Tile t = tile.GetComponent<Tile>();
+            /*Debug.Log(t.IsFree);
+            Debug.Log(t.tree);
+            Debug.Log(index);*/
+            list.Add(index.ToString());
+            list.Add(t.IsFree.ToString());
+            list.Add(t.tree.ToString());
+            index++;
+        }
+        Debug.Log(list.Count);
+        Debug.Log(list[0]);
+        Debug.Log(list[1]);
+        Debug.Log(list[2]);
+        foreach (var l in list)
+        {
+            //Debug.Log(l);
+        }
     }
 }
