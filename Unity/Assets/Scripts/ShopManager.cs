@@ -20,6 +20,16 @@ public class ShopManager : MonoBehaviour
     private int _currentClickLevel;
     private int _currentAutoGathererLevel;
 
+    public int GetClickLevel()
+    {
+        return _currentClickLevel;
+    }
+
+    public int GetAutoGathererLevel()
+    {
+        return _currentAutoGathererLevel;
+    }
+
     private void Start()
     {
         Init();
