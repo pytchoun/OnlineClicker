@@ -97,15 +97,26 @@ public class WebRequest : MonoBehaviour
             }
             else
             {
-                //Debug.Log(www.downloadHandler.text);
-                _notificationText.SetText("Load completed.");
+                Debug.Log(www.downloadHandler.text);
 
                 string saveData = www.downloadHandler.text;
-                string[] arrayData = saveData.Split(' ');
-                SetData(int.Parse(arrayData[0]), int.Parse(arrayData[1]), int.Parse(arrayData[2]));
-                /*Debug.Log(arrayData[0]);
-                Debug.Log(arrayData[1]);
-                Debug.Log(arrayData[2]);*/
+                if (saveData != "Invalide code." && saveData != "An error has occurred.")
+                {
+                    string[] arrayData = saveData.Split(' ');
+                    SetData(int.Parse(arrayData[0]), int.Parse(arrayData[1]), int.Parse(arrayData[2]));
+                    _notificationText.SetText("Load completed.");
+                    /*Debug.Log(arrayData[0]);
+                    Debug.Log(arrayData[1]);
+                    Debug.Log(arrayData[2]);*/
+                }
+                else if (saveData == "Invalide code.")
+                {
+                    _notificationText.SetText("Invalide code.");
+                }
+                else if (saveData == "An error has occurred.")
+                {
+                    _notificationText.SetText("An error has occurred.");
+                }
             }
 
             WaitForSeconds timeToWait = new WaitForSeconds(0.5f);
