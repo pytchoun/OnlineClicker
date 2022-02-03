@@ -11,6 +11,7 @@ public class WebRequest : MonoBehaviour
     [SerializeField] private GameObject _savingPanel;
     [SerializeField] private GameObject _loadPanel;
     [SerializeField] private TMP_Text _notificationText;
+    [SerializeField] private TMP_Text _saveCodeText;
     [SerializeField] private TMP_InputField _inputField;
     [SerializeField] private PlayerScore _playerScore;
     [SerializeField] private ShopManager _shopManager;
@@ -59,7 +60,8 @@ public class WebRequest : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);
-                _notificationText.SetText(www.downloadHandler.text);
+                _saveCodeText.SetText("Code: " + www.downloadHandler.text);
+                _notificationText.SetText("Save completed.");
             }
 
             WaitForSeconds timeToWait = new WaitForSeconds(0.5f);
