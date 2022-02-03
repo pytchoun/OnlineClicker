@@ -25,9 +25,28 @@ public class ShopManager : MonoBehaviour
         return _currentClickLevel;
     }
 
+    public void SetClickLevel(int level)
+    {
+        _currentClickLevel = level;
+
+        _clickLevel.SetText("Level " + _currentClickLevel.ToString());
+        double value = PowerOfTwo(_currentClickLevel);
+        _playerScore.Amount = (int)value;
+        _clickGain.SetText(value + " per click");
+    }
+
     public int GetAutoGathererLevel()
     {
         return _currentAutoGathererLevel;
+    }
+
+    public void SetAutoGathererLevel(int level)
+    {
+        _currentAutoGathererLevel = level;
+
+        _autoGathererLevel.SetText("Level " + _currentAutoGathererLevel.ToString());
+        double value = PowerOfTwo(_currentAutoGathererLevel, true);
+        _autoGathererGain.SetText(value + " evey 5s");
     }
 
     private void Start()

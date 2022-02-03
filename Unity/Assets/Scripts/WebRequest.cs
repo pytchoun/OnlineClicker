@@ -18,7 +18,7 @@ public class WebRequest : MonoBehaviour
 
     // Variables
     private string _saveUrl = "http://localhost/onlineclicker/saveData.php";
-    //private string _loadUrl = "http://localhost/onlineclicker/loadData.php";
+    private string _loadUrl = "http://localhost/onlineclicker/loadData.php";
     private bool _isSaving = false;
 
     public void ToggleSaving()
@@ -74,5 +74,54 @@ public class WebRequest : MonoBehaviour
             _notificationText.gameObject.SetActive(!_notificationText.gameObject.activeSelf);
             _isSaving = false;
         }
+    }
+
+    public void LoadData()
+    {
+        StartCoroutine(GetSaveData(_inputField.text));
+    }
+
+    private IEnumerator GetSaveData(string userSaveToken)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userSaveToken", userSaveToken);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(_loadUrl, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+                _notificationText.SetText(www.error);
+            }
+            else
+            {
+                //Debug.Log(www.downloadHandler.text);
+                _notificationText.SetText("Load completed.");
+
+                string saveData = www.downloadHandler.text;
+                string[] arrayData = saveData.Split(' ');
+                SetData(int.Parse(arrayData[0]), int.Parse(arrayData[1]), int.Parse(arrayData[2]));
+                /*Debug.Log(arrayData[0]);
+                Debug.Log(arrayData[1]);
+                Debug.Log(arrayData[2]);*/
+            }
+
+            WaitForSeconds timeToWait = new WaitForSeconds(0.5f);
+
+            //yield return timeToWait;
+            _notificationText.gameObject.SetActive(!_notificationText.gameObject.activeSelf);
+
+            yield return timeToWait;
+            _notificationText.gameObject.SetActive(!_notificationText.gameObject.activeSelf);
+        }
+    }
+
+    private void SetData(int score, int clickLevel, int autoGathererLevel)
+    {
+        _playerScore.SetScore(score);
+        _shopManager.SetClickLevel(clickLevel);
+        _shopManager.SetAutoGathererLevel(autoGathererLevel);
     }
 }

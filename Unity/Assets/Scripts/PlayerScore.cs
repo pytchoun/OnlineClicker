@@ -19,6 +19,12 @@ namespace clicker
             return _score;
         }
 
+        public void SetScore(int score)
+        {
+            _score = score;
+            _textbox.SetText(_score.ToString());
+        }
+
         private void OnEnable()
         {
             _textbox.SetText(_score.ToString());

@@ -9445,8 +9445,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1268329541}
-        m_MethodName: ToggleMenu
+      - m_Target: {fileID: 2137605032}
+        m_MethodName: LoadData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
