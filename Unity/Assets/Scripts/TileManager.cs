@@ -4,33 +4,33 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _tileList = new List<GameObject>();
+    [SerializeField] private List<Tile> _tileList = new List<Tile>();
 
-    public List<GameObject> GetTileList()
+    public List<Tile> GetTileList()
     {
         return _tileList;
     }
 
     private void Start()
     {
-        foreach (Transform child in GetComponentsInChildren<Transform>())
+        foreach (Tile child in GetComponentsInChildren<Tile>())
         {
             if (child.name == "tile")
             {
-                _tileList.Add(child.gameObject);
+                _tileList.Add(child);
             }
         }
 
         GetTitlesState();
     }
 
-    public GameObject GetTile(GameObject tree)
+    public Tile GetTile(GameObject tree)
     {
         int value = 0;
         for (int i = 0; i < 100; i++)
         {
             value = Random.Range(0, _tileList.Count);
-            Tile tile = _tileList[value].GetComponent<Tile>();
+            Tile tile = _tileList[value];
             if (tile.IsFree)
             {
                 tile.IsFree = false;
@@ -49,7 +49,7 @@ public class TileManager : MonoBehaviour
         int index = 0;
         foreach (var tile in _tileList)
         {
-            Tile t = tile.GetComponent<Tile>();
+            Tile t = tile;
             /*Debug.Log(t.IsFree);
             Debug.Log(t.tree);
             Debug.Log(index);*/

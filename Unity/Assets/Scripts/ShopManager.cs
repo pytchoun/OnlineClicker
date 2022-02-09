@@ -131,11 +131,11 @@ public class ShopManager : MonoBehaviour
     {
         if (_playerScore.GetScore() >= 20)
         {
-            GameObject title = _tileManager.GetTile(tree);
+            Tile title = _tileManager.GetTile(tree);
             if (title != null)
             {
                 _playerScore.DecreaseScore(20);
-                SpawnTree(tree, title);
+                SpawnTree(tree, title.gameObject);
                 _tileManager.GetTitlesState();
             }  
         }
